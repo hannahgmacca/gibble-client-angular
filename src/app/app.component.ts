@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { WORKOUT_STRENGTH } from './mock-data/mock-workout';
+import { Workout } from './workout';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'gibble-client';
+  workout: Workout = WORKOUT_STRENGTH;
+  title = 'Gibble';
 }

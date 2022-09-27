@@ -1,0 +1,20 @@
+<div *ngIf="round" class="round {{classNames}} d-flex flex-column align-items-center justify-content-center">
+    
+    <p>{{round.isSuperSet || round.exerciseList.length > 1 ? "Superset" : round.exerciseList[0].name }}</p>
+
+    <div *ngFor="let set of round?.setList">
+
+        <app-set [isActive]="round.isActive" [set]="set"></app-set>
+
+    </div>
+
+    <div *ngIf="workoutActive">
+
+    <button *ngIf="round.isActive" class="btn btn-danger btn-sm my-2" type="button" (click)="onRoundComplete()">Complete round</button>
+
+    <button *ngIf="!round.isActive" class="btn btn-primary btn-block btn-sm my-2" type="button" (click)="onRoundEdit()">Edit round</button>
+
+    </div>
+
+
+</div>

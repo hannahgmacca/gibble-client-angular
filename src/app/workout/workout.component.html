@@ -1,0 +1,18 @@
+<div *ngIf="workout" class="workout {{classNames}}" [ngClass]="classNames">
+
+    <div *ngIf="workout.isActive">
+
+        <button class="btn btn-danger btn-block" type="button" (click)="onWorkoutComplete()">Complete workout</button>
+
+        <div *ngIf="!workout.activeRound" class="add-round">
+            <app-exercise-search></app-exercise-search>
+        </div>
+
+        <app-round (completeRoundEvent)="completeRound($event)"  (activateRoundEvent)="activateRound($event)" *ngIf="workout.activeRound" [workoutActive]="workout.isActive" [round]="workout.activeRound"></app-round>
+    </div>
+
+    <div *ngFor="let round of workout.completedRounds" class="completed-rounds">
+        <app-round (completeRoundEvent)="completeRound($event)"  (activateRoundEvent)="activateRound($event)" [workoutActive]="workout.isActive" [round]="round"></app-round>
+    </div>
+
+</div>

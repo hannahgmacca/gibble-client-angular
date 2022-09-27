@@ -1,0 +1,7 @@
+<div *ngIf="set" class="set {{classNames}} d-flex justify-content-center my-2">
+    <input class="col-2" *ngIf="isActive" type="number" id="repCount" [(ngModel)]="set.repCount" placeholder="set.repCount">
+    <span *ngIf="!isActive">{{set.repCount}}</span>
+    <span class="name">{{" x "}}</span>
+    <span *ngIf="!isActive">{{set.weightKg}}</span>
+    <input  class="col-2" *ngIf="isActive" type="number" id="weightKg" [(ngModel)]="set.weightKg" placeholder="set.weightKg">
+</div>
