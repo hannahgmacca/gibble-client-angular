@@ -1,4 +1,4 @@
-import { Round } from '../round';
+import { Round } from '../domain/models/round.model';
 import { SETS_BARBELL_SQUATS, SETS_BARBELL_PUSHPRESS, SETS_LEGPRESS } from './mock-sets';
 import {EXERCISES} from './mock-exercises';
 

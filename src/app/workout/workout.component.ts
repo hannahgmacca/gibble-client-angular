@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {FormControl} from '@angular/forms';
-import { Exercise } from '../exercise';
-
-import { Round } from '../round';
-import { Workout } from '../workout';
+import { ExerciseModel } from '../domain/models/exercise.model';
+import { RoundModel } from '../domain/models/round.model';
+import { WorkoutModel } from '../domain/models/workout.model';
+import { UserModel } from '../domain/models/user.model';
+import { WorkoutService } from '../workout.service';
 
 @Component({
   selector: 'app-workout',
@@ -13,9 +13,10 @@ import { Workout } from '../workout';
 
 export class WorkoutComponent implements OnInit {
   classNames: string;
-  @Input() workout?: Workout;
+  @Input() user: UserModel;
+  @Input() workout: WorkoutModel;
 
-  constructor() { 
+  constructor(private workoutService: WorkoutService) { 
     this.classNames = this.getClassNames();
   }
 
@@ -31,7 +32,7 @@ export class WorkoutComponent implements OnInit {
     }
   }
 
-  completeRound(round: Round) {
+  completeRound(round: RoundModel) {
     if (this.workout && this.workout.activeRound) {
       this.workout.activeRound.isActive = false;
       this.workout.completedRounds.push(round);
@@ -40,8 +41,8 @@ export class WorkoutComponent implements OnInit {
     this.emptyActiveRound();
   }
 
-  onAddExercise(exerciseValue: string | Exercise) {
-    if (this.workout) {
+  onAddExercise(exerciseValue: string | ExerciseModel | null) {
+    if (this.workout && exerciseValue) {
       if (typeof exerciseValue === "string") {
         this.addNewExercise(exerciseValue)
       } else {
@@ -50,15 +51,39 @@ export class WorkoutComponent implements OnInit {
     }
   }
 
-  addNewRound(exercise: Exercise) {
+  addNewRound(exercise: ExerciseModel) {
+    if (this.workout && exercise) {
+      let firstSet = this.intialiseSet(exercise);
 
+      let Round = {
+        id: Math.random.toString(),
+        dateStarted: new Date(),
+        isActive: true,
+        exerciseList: [exercise],
+        setList: [firstSet],
+      }
+
+      this.workout.activeRound = Round;
+    }
+    
   }
 
-  addNewExercise(exercise: string) {
+  addNewExercise(exerciseName: string) {
+    if (exerciseName.length > 0) {
+      let newExercise = {
+        name: exerciseName,
+        defaultPrMetric: "weight",
+        defaultRepCount: 12,
+        defaultWeightIncrease: 5,
+        defaultDurationSeconds: 59
+      }
 
+      this.user.exercises.push(newExercise);
+      this.addNewRound(newExercise);
+    } 
   }
 
-  activateRound(round: Round) {
+  activateRound(round: RoundModel) {
     let newActiveRound = round;
 
     if (this.workout && this.workout.activeRound) {
@@ -75,7 +100,20 @@ export class WorkoutComponent implements OnInit {
     this.addActiveRound(newActiveRound);
   }
 
-  removeFromCompletedRounds(round: Round) { 
+  intialiseSet(exerciseIn: ExerciseModel) {
+
+    let setObject = {
+      exercise: exerciseIn,
+      repCount: exerciseIn.defaultRepCount ? exerciseIn.defaultRepCount : 12,
+      durationSeconds: exerciseIn.defaultDurationSeconds ? exerciseIn.defaultDurationSeconds : 12,
+      weightKg: 0,
+      isPersonalBest: false,
+    }
+
+    return setObject;
+  }
+
+  removeFromCompletedRounds(round: RoundModel) { 
     if (this.workout) {
         this.workout.completedRounds = this.workout.completedRounds.filter(function(ele) { 
           return ele.id != round.id; 
@@ -89,7 +127,7 @@ export class WorkoutComponent implements OnInit {
     }
   }
 
-  addActiveRound(round: Round) {
+  addActiveRound(round: RoundModel) {
     if (this.workout) {
       this.workout.activeRound = round;
     }

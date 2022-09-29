@@ -1,7 +1,7 @@
-import { Exercise } from "./exercise";
+import { ExerciseModel } from "./exercise.model";
 
-export interface Set {
-    exercise: Exercise;
+export interface SetModel {
+    exercise: ExerciseModel;
     repCount: number,
     durationSeconds?: number|null|undefined,
     weightKg: number,

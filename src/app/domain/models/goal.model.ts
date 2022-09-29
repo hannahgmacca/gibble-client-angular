@@ -1,4 +1,4 @@
-export interface Goal {
+export interface GoalModel {
     goalId: number;
     type?: string;
     isAchieved?: boolean;

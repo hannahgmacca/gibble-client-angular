@@ -1,5 +1,5 @@
 import { ROUNDS_BARBELL_PUSHPRESS, ROUNDS_BARBELL_SQUATS, ROUNDS_LEGPRESS } from './mock-rounds';
-import { Workout } from '../workout';
+import { Workout } from '../domain/models/workout.model';
 
 export const WORKOUT_STRENGTH: Workout =
     {

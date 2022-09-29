@@ -1,5 +1,5 @@
-import { Exercise } from '../exercise';
-import { ROUNDS_BARBELL_SQUATS, ROUNDS_BARBELL_PUSHPRESS, ROUNDS_LEGPRESS } from './mock-rounds';
+import { Exercise } from '../domain/models/exercise.model';
+//import { ROUNDS_BARBELL_SQUATS, ROUNDS_BARBELL_PUSHPRESS, ROUNDS_LEGPRESS } from './mock-rounds';
 
 export const EXERCISES: Exercise[] = [
     {

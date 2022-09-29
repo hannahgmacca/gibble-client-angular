@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { Exercise } from '../exercise';
+import { Exercise } from '../domain/models/exercise.model';
 import { EXERCISES } from '../mock-data/mock-exercises';
 
 @Component({

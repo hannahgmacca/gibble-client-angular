@@ -1,13 +1,13 @@
-import { Round } from "./round";
+import { RoundModel } from "./round.model";
 
-export interface Workout {
+export interface WorkoutModel {
     id: string,
     userId: number,
     name: string,
     type: string,
     isActive: boolean,
-    completedRounds: Array<Round>,
-    activeRound?: Round,
+    completedRounds: Array<RoundModel>,
+    activeRound?: RoundModel,
     caloriesBurnt?: number|null|undefined,
     timeStarted: Date,
     timeEnded?: Date|null|undefined
